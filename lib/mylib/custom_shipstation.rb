@@ -23,7 +23,7 @@ module MyLib
         order_new["advancedOptions"] = advanced_options_new
 
         order_new
-        end
+      end
     end
   end
 end

@@ -26,7 +26,8 @@ module ShopifyRailsAppStarter
     config.shipstation = {
       api_key: ENV.fetch("SHIPSTATION_API_KEY", nil),
       api_secret: ENV.fetch("SHIPSTATION_API_SECRET", nil),
-      shopify_store_id: 389717
+      shopify_store_id: 389717,
+      delay: 10
     }
 
     config.autoload_paths << Rails.root.join("lib")

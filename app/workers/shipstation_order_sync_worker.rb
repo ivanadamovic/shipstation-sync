@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class ShopifyOrdersSyncWorker
+class ShipstationOrderSyncWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :shopify_orders_sync, retry: false
+  sidekiq_options queue: :shipstation_order_sync, retry: false
 
   def perform(order_id)
     order = Shipstation::Order.retrieve(order_id)
@@ -14,12 +14,13 @@ class ShopifyOrdersSyncWorker
       puts "app_log(INFO): order customField1 = #{order["advancedOptions"]["customField1"]}"
       begin
         order_payload = MyLib::CustomShipStation.order_update_payload(order: order)
-        res = Shipstation::Order.create(order_payload)
-        puts "app_log(INFO): updated order id = #{res["orderId"]}"
-        puts "app_log(INFO): updated order number = #{res["orderNumber"]}"
-        puts "app_log(INFO): updated customField1 = #{res["advancedOptions"]["customField1"]}"
+        puts order_payload
+        # res = Shipstation::Order.create(order_payload)
+        # puts "app_log(INFO): updated order id = #{res["orderId"]}"
+        # puts "app_log(INFO): updated order number = #{res["orderNumber"]}"
+        # puts "app_log(INFO): updated customField1 = #{res["advancedOptions"]["customField1"]}"
       rescue => err
-        puts err.message
+        puts "app_log(ERROR): #{err.message}"
       end
       puts "app_log(INFO): done"
     end

@@ -1,6 +1,6 @@
 development:
-  :concurrency: 1
+  :concurrency: 5
 production:
-  :concurrency: 1
+  :concurrency: 5
 :queues:
-  - shopify_orders_sync
+  - shipstation_order_sync

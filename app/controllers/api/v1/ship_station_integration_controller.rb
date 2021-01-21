@@ -10,5 +10,20 @@ class Api::V1::ShipStationIntegrationController < ActionController::API
 
     puts "app_log(INFO): resource_type = #{resource_type}"
     puts "app_log(INFO): resource_url = #{resource_url}"
+
+    begin
+      resource = resource_url.split("shipstation.com/")[1]
+      puts "app_log(INFO): resource = #{resource}"
+      new_orders = Shipstation.request(:get, resource)
+      new_order["orders"].each { |order|
+        ShipstationOrdersSyncWorker.perform_in(Rails.configuration.shipstation[:delay].minutes, order["orderId"])
+      end
+    rescue => err
+      puts "app_log(ERROR): #{err.message}"
+    end
+
+    render json: {
+      status: true
+    }
   end
 end
