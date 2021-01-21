@@ -65,3 +65,6 @@ gem "shopify_app"
 
 gem "sidekiq"
 gem "shipstation"
+
+# CORS
+gem "rack-cors"
