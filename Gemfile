@@ -62,3 +62,6 @@ gem "dotenv-rails"
 gem "graphql"
 gem "react-rails"
 gem "shopify_app"
+
+gem "sidekiq"
+gem "shipstation"

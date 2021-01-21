@@ -7,4 +7,10 @@ Rails.application.routes.draw do
   get '/products', :to => 'products#index'
   mount ShopifyApp::Engine, at: '/'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  namespace :api do
+  	namespace :v1 do
+  		post "new_order" => "ship_station_integration#handle_new_order"
+  	end
+  end
 end

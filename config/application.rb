@@ -18,5 +18,17 @@ module ShopifyRailsAppStarter
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Load lib modules
+    config.shopify = {
+      domain: ENV.fetch("SHOPIFY_DOMAIN", nil)
+    }
+    config.shipstation = {
+      api_key: ENV.fetch("SHIPSTATION_API_KEY", nil),
+      api_secret: ENV.fetch("SHIPSTATION_API_SECRET", nil),
+      shopify_store_id: 389717
+    }
+
+    config.autoload_paths << Rails.root.join("lib")
   end
 end
