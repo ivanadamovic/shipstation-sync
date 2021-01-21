@@ -15,7 +15,7 @@ class Api::V1::ShipStationIntegrationController < ActionController::API
       puts "app_log(INFO): resource = #{resource}"
       new_orders = Shipstation.request(:get, resource)
       new_orders["orders"].each { |order|
-        ShipstationOrdersSyncWorker.perform_in(Rails.configuration.shipstation[:delay].minutes, order["orderId"])
+        ShipstationOrderSyncWorker.perform_in(Rails.configuration.shipstation[:delay].minutes, order["orderId"])
       }
     rescue => err
       puts "app_log(ERROR): #{err.message}"
