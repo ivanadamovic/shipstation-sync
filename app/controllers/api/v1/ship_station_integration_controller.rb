@@ -15,9 +15,9 @@ class Api::V1::ShipStationIntegrationController < ActionController::API
       resource = resource_url.split("shipstation.com/")[1]
       puts "app_log(INFO): resource = #{resource}"
       new_orders = Shipstation.request(:get, resource)
-      new_order["orders"].each { |order|
+      new_orders["orders"].each { |order|
         ShipstationOrdersSyncWorker.perform_in(Rails.configuration.shipstation[:delay].minutes, order["orderId"])
-      end
+      }
     rescue => err
       puts "app_log(ERROR): #{err.message}"
     end
