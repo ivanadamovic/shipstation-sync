@@ -17,9 +17,7 @@ module MyLib
         advanced_options_new["customField1"] = order["orderNumber"]
 
         order_new = order
-        [
-          "advancedOptions"
-        ].each { |k| order_new.delete k }
+        order_new.delete "advancedOptions"
         order_new["advancedOptions"] = advanced_options_new
 
         order_new
