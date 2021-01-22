@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MyLib
-  class CustomShipStation
+  class CustomShipstation
     class << self
       def orders(start_date:)
         # start_date = ""
