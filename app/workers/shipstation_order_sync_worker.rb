@@ -11,16 +11,19 @@ class ShipstationOrderSyncWorker
       puts "app_log(INFO): checking order #{order["orderNumber"]} ..."
       puts "app_log(INFO): order id = #{order["orderId"]}"
       puts "app_log(INFO): order status = #{order["orderStatus"]}"
-      puts "app_log(INFO): order customField1 = #{order["advancedOptions"]["customField1"]}"
-      begin
-        order_payload = MyLib::CustomShipstation.order_update_payload(order: order)
-        puts order_payload
-        # res = Shipstation::Order.create(order_payload)
-        # puts "app_log(INFO): updated order id = #{res["orderId"]}"
-        # puts "app_log(INFO): updated order number = #{res["orderNumber"]}"
-        # puts "app_log(INFO): updated customField1 = #{res["advancedOptions"]["customField1"]}"
-      rescue => err
-        puts "app_log(ERROR): #{err.message}"
+      custom_field1 = order["advancedOptions"]["customField1"]
+      puts "app_log(INFO): order customField1 = #{custom_field1}"
+      if custom_field1.nil?
+        begin
+          order_payload = MyLib::CustomShipstation.order_update_payload(order: order)
+          puts order_payload
+          # res = Shipstation::Order.create(order_payload)
+          # puts "app_log(INFO): updated order id = #{res["orderId"]}"
+          # puts "app_log(INFO): updated order number = #{res["orderNumber"]}"
+          # puts "app_log(INFO): updated customField1 = #{res["advancedOptions"]["customField1"]}"
+        rescue => err
+          puts "app_log(ERROR): #{err.message}"
+        end
       end
       puts "app_log(INFO): done"
     end
