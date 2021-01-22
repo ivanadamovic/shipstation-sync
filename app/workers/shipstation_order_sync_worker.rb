@@ -13,7 +13,7 @@ class ShipstationOrderSyncWorker
       puts "app_log(INFO): order status = #{order["orderStatus"]}"
       puts "app_log(INFO): order customField1 = #{order["advancedOptions"]["customField1"]}"
       begin
-        order_payload = MyLib::CustomShipStation.order_update_payload(order: order)
+        order_payload = MyLib::CustomShipstation.order_update_payload(order: order)
         puts order_payload
         # res = Shipstation::Order.create(order_payload)
         # puts "app_log(INFO): updated order id = #{res["orderId"]}"
