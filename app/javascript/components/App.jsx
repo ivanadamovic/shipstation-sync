@@ -10,6 +10,8 @@ import { authenticatedFetch } from '@shopify/app-bridge-utils';
 import enTranslations from '@shopify/polaris/locales/en.json';
 import React from 'react';
 
+import OrderList from './orders'
+
 export default function App() {
   const client = new ApolloClient({
     link: new HttpLink({
@@ -24,7 +26,7 @@ export default function App() {
     <AppProvider i18n={enTranslations}>
       <ApolloProvider client={client}>
         <Page>
-          <p>ShipStation Sync</p>
+          <OrderList />
         </Page>
       </ApolloProvider>
     </AppProvider>
