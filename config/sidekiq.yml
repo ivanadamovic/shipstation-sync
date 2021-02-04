@@ -4,3 +4,4 @@ production:
   :concurrency: 5
 :queues:
   - shipstation_order_sync
+  - shipstation_shipped_order_sync

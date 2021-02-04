@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post "new_order" => "ship_station_integration#handle_new_order"
+      post "new_shipped_order" => "ship_station_integration#handle_new_shipped_order"
     end
   end
 end

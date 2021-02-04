@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_25_172043) do
+ActiveRecord::Schema.define(version: 2021_02_04_161344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "items", force: :cascade do |t|
+    t.bigint "shipstation_order_id"
+    t.string "sku"
+    t.string "name"
+    t.jsonb "options"
+    t.integer "qty", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shipstation_order_id"], name: "index_items_on_shipstation_order_id"
+  end
+
+  create_table "shipstation_orders", force: :cascade do |t|
+    t.string "order_number", null: false
+    t.string "order_status", null: false
+    t.datetime "order_date", null: false
+    t.datetime "ship_date", null: false
+    t.jsonb "ship_to", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "shops", force: :cascade do |t|
     t.string "shopify_domain", null: false
