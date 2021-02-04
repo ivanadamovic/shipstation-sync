@@ -4,7 +4,7 @@ import {
   HttpLink,
   InMemoryCache,
 } from '@apollo/client';
-import { AppProvider, EmptyState, Page } from '@shopify/polaris';
+import { AppProvider, Page } from '@shopify/polaris';
 import { authenticatedFetch } from '@shopify/app-bridge-utils';
 
 import enTranslations from '@shopify/polaris/locales/en.json';
@@ -17,7 +17,7 @@ export default function App() {
       fetch: authenticatedFetch(window.app), // created in shopify_app.js
       // uri: '/graphql'
     }),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
   });
 
   return (
