@@ -11,7 +11,7 @@ class Api::V1::ShipStationIntegrationController < ActionController::API
     puts "app_log(INFO): resource_url = #{resource_url}"
 
     begin
-      orders = get_orders(resource_url: resource_url)
+      orders = MyLib::CustomShipstation.orders(resource_url: resource_url)
       orders.each { |order|
         ShipstationOrderSyncWorker.perform_in(Rails.configuration.shipstation[:delay].minutes, order["orderId"])
       }
@@ -33,9 +33,9 @@ class Api::V1::ShipStationIntegrationController < ActionController::API
     puts "app_log(INFO): resource_url = #{resource_url}"
 
     begin
-      orders = get_orders(resource_url: resource_url)
-      orders.each { |order|
-        ShipstationShippedOrderSyncWorker.perform_in(Rails.configuration.shipstation[:delay].minutes, order["orderId"])
+      shipments = MyLib::CustomShipstation.shipments(resource_url: resource_url)
+      shipments.each { |shipment|
+        ShipstationShippedOrderSyncWorker.perform_in(Rails.configuration.shipstation[:delay].minutes, shipment["orderId"])
       }
     rescue => err
       puts "app_log(ERROR): #{err.message}"
@@ -45,12 +45,4 @@ class Api::V1::ShipStationIntegrationController < ActionController::API
       status: true
     }
   end
-
-  private
-    def get_orders(resource_url:)
-      resource = resource_url.split("shipstation.com/")[1]
-      puts "app_log(INFO): resource = #{resource}"
-      new_orders = Shipstation.request(:get, resource)
-      new_orders["orders"]
-    end
 end
