@@ -68,3 +68,4 @@ gem "shipstation"
 
 # CORS
 gem "rack-cors"
+gem "wicked_pdf"

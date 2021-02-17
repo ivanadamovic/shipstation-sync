@@ -16,4 +16,6 @@ Rails.application.routes.draw do
       post "new_shipped_order" => "ship_station_integration#handle_new_shipped_order"
     end
   end
+
+  resources :orders, only: [:show]
 end

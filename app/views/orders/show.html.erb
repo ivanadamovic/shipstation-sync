@@ -1,0 +1,219 @@
+<style>
+  * {
+    font-size: 16px;
+    font-family: Arial, serif;
+    font-weight: bold;
+  }
+  .w-100 {
+    width: 100%;
+  }
+
+  .float-right {
+    float: right;
+  }
+
+  .v-align-top {
+    vertical-align: top;
+  }
+
+  .d-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  .d-table {
+    display: table;
+  }
+
+  .d-table-row {
+    display: table-row;
+  }
+
+  .d-table-cell {
+    display: table-cell;
+  }
+
+  .justify-content-center {
+    -webkit-box-pack: center;
+    justify-content: center;
+  }
+
+  .justify-content-flex-start {
+    -webkit-box-pack: flex-start;
+    justify-content: flex-start;
+  }
+
+  .align-items-center {
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  .flex-direction-column {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .packing-slip {
+    padding: 20px;
+  }
+
+  .navbar {
+    width: 100%;
+    height: 20px;
+    background-color: #7f7f7f;
+    color: white;
+  }
+
+  .navbar p {
+    vertical-align: middle;
+    text-align: center;
+    line-height: 20px;
+  }
+
+  .header {
+    margin-top: 10px;
+  }
+
+  .header img {
+    width: 300px;
+    height: 80px;
+  }
+
+  .order__number {
+    font-size: 30px !important;
+  }
+
+  .order__header {
+    margin-bottom: 50px;
+  }
+
+  .order__ship_to .details {
+    padding-left: 50px;
+  }
+
+  .order__ship_to .details p {
+    margin: 0 !important;
+    white-space: nowrap;
+  }
+
+  .order__details {
+    height: fit-content;
+    margin-right: 100px;
+  }
+
+  .order__details p {
+    margin: 0 !important;
+  }
+
+  .order__details .title {
+    text-align: right;
+    margin-right: 10px;
+    border-right: 1px solid;
+    padding-right: 5px;
+  }
+
+  .order__details .details {
+    padding-left: 5px;
+  }
+
+  .order__details .title p:nth-child(2),
+  .order__details .details p:nth-child(2) {
+    margin-top: 5px !important;
+  }
+
+  .order__line-items {
+    text-align: left;
+  }
+
+  .order__line-items table {
+    border-collapse: collapse;
+    border-bottom: 1px solid #7f7f7f;
+  }
+
+  .order__line-items p {
+    margin: 0 !important;
+  }
+
+  .order__line-items thead {
+    background-color: #7f7f7f;
+    color: white;
+  }
+
+  .order__line-items thead tr {
+    height: 20px;
+  }
+
+  .order__line-items .description {
+    line-height: 1.2;
+  }
+
+  .order__line-items td {
+    vertical-align: top;
+    padding: 10px 0;
+    font-size: 20px !important;
+  }
+
+  .order__date {
+    font-size: 30px;
+  }
+</style>
+
+<div class="packing-slip">
+  <div class="navbar d-table">
+    <p class="d-table-cell">ThePorchSwingCompany.com Packing Slip</p>
+  </div>
+  <div class="header">
+    <%= image_tag("logo.jpg") %>
+  </div>
+  <div class="order">
+    <p class="order__number">Order Number: <%= @order_number %></p>
+    <div class="order__header d-table w-100">
+      <div class="order__ship_to d-table-cell v-align-top">
+        <div class="title d-table-cell"><span>Ship To:</span></div>
+        <div class="details d-table-cell">
+          <p><%= @user_name %></p>
+          <p><%= @street %></p>
+          <p><%= @address %></p>
+          <p><%= @phone_number %></p>
+        </div>
+      </div>
+      <div class="order__details d-table-cell float-right">
+        <div class="title d-table-cell">
+          <p>Order #</p>
+          <p>Order Date</p>
+        </div>
+        <div class="details d-table-cell">
+          <p><%= @order_number %></p>
+          <p><%= @order_date %></p>
+        </div>
+      </div>
+    </div>
+    <div class="order__line-items">
+      <table class="w-100">
+        <thead>
+        <tr>
+          <th width="20%">Item</th>
+          <th width="70%">Description</th>
+          <th width="10%">Qty</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @shipment_items.each do |item| %>
+          <tr>
+            <td><%= item[:sku] %></td>
+            <td class="description">
+              <p><%= item[:name] %></p>
+              <% item[:options].each do |option| %>
+                <p><%= option[:name] %>: <%= option[:value] %></p>
+              <% end %>
+            </td>
+            <td><%= item[:quantity] %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <p class="order__date"><%= @order_date %></p>
+  </div>
+</div>
