@@ -24,7 +24,7 @@ class ShipstationShippedOrderSyncWorker
             sku: item["sku"],
             name: item["name"],
             options: item["options"],
-            quantity: item["quantity"]
+            qty: item["quantity"]
           )
         rescue => e
           puts "app_ship_log(ERROR, #{order["orderNumber"]}): #{e.message}"
