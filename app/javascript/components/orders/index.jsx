@@ -4,7 +4,11 @@ import {
   ResourceList,
   ResourceItem,
   TextStyle,
+  Icon
 } from '@shopify/polaris'
+import {
+  ShipmentMajor
+} from '@shopify/polaris-icons';
 import moment from 'moment'
 import { orderService } from '../../services'
 
@@ -36,17 +40,21 @@ class OrderList extends Component {
   }
 
   renderItem = (item) => {
-    const {id, order_number, ship_date} = item
+    const {id, order_number, order_date, ship_date} = item
+    const shipmentIcon = <Icon source={ShipmentMajor} />;
+
     return (
       <ResourceItem
         id={id}
         accessibilityLabel={`View details for ${order_number}`}
+        media={shipmentIcon}
         persistActions
       >
         <h3>
           <TextStyle variation="strong">{order_number}</TextStyle>
         </h3>
-        <div>{moment(ship_date).format('MM/DD/YYYY')}</div>
+        <div>Order date: {moment(order_date).format('MM/DD/YYYY')}</div>
+        <div>Shipment date: {moment(ship_date).format('MM/DD/YYYY')}</div>
       </ResourceItem>
     )
   }
