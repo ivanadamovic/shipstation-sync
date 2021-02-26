@@ -5,6 +5,8 @@ import {
   ResourceItem,
   TextStyle,
 } from '@shopify/polaris'
+import moment from 'moment'
+import { orderService } from '../../services'
 
 class OrderList extends Component {
   constructor(props) {
@@ -12,17 +14,21 @@ class OrderList extends Component {
 
     this.state = {
       orders: [
-        {
-          id: 2951502135435,
-          orderNumber: '234903',
-          shipDate: '2021-02-03',
-        },
       ],
       selectedOrders: []
     }
   }
 
   componentDidMount() {
+    orderService.getOrders()
+      .then(res => {
+        const orders = res.orders
+
+        this.setState({ orders })
+      })
+      .catch(err => {
+        console.log(`error -- err`)
+      })
   }
 
   selectOrders = (selectedOrders) => {
@@ -30,17 +36,17 @@ class OrderList extends Component {
   }
 
   renderItem = (item) => {
-    const {id, orderNumber, shipDate} = item
+    const {id, order_number, ship_date} = item
     return (
       <ResourceItem
         id={id}
-        accessibilityLabel={`View details for ${orderNumber}`}
+        accessibilityLabel={`View details for ${order_number}`}
         persistActions
       >
         <h3>
-          <TextStyle variation="strong">{orderNumber}</TextStyle>
+          <TextStyle variation="strong">{order_number}</TextStyle>
         </h3>
-        <div>{shipDate}</div>
+        <div>{moment(ship_date).format('MM/DD/YYYY')}</div>
       </ResourceItem>
     )
   }
