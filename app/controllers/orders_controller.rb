@@ -81,7 +81,7 @@ class OrdersController < ApplicationController
 
   # Get orders
   def index
-    orders = ShipstationOrder.select(:id, :order_number, :ship_date)
+    orders = ShipstationOrder.select(:id, :order_number, :ship_date).limit(50)
 
     render json: {
       orders: orders
