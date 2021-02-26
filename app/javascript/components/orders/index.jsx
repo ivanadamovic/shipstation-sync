@@ -51,6 +51,10 @@ class OrderList extends Component {
     )
   }
 
+  // Generate PDF
+  handleGenerate = () => {
+  }
+
   render() {
     const resourceName = {
       singular: 'order',
@@ -59,8 +63,8 @@ class OrderList extends Component {
 
     const promotedBulkActions = [
       {
-        content: 'Download PDF',
-        onAction: () => console.log('Todo: implement bulk edit'),
+        content: 'Generate PDF',
+        onAction: () => this.handleGenerate(),
       },
     ]
 
