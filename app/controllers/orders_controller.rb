@@ -78,4 +78,13 @@ class OrdersController < ApplicationController
       "options": options
     }]
   end
+
+  # Get orders
+  def index
+    orders = ShipstationOrder.select(:id, :order_number, :ship_date)
+
+    render json: {
+      orders: orders
+    }, status: :ok
+  end
 end
