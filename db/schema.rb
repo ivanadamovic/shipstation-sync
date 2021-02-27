@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_04_161344) do
+ActiveRecord::Schema.define(version: 2021_02_27_215400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clubs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "items", force: :cascade do |t|
     t.bigint "shipstation_order_id"
@@ -42,6 +48,19 @@ ActiveRecord::Schema.define(version: 2021_02_04_161344) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "students_clubs", force: :cascade do |t|
+    t.bigint "student_id"
+    t.bigint "club_id"
+    t.index ["club_id"], name: "index_students_clubs_on_club_id"
+    t.index ["student_id"], name: "index_students_clubs_on_student_id"
   end
 
 end
