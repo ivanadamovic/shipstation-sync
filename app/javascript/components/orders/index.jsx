@@ -59,8 +59,13 @@ class OrderList extends Component {
     )
   }
 
-  // Generate PDF
+  // Trigger generate event
   handleGenerate = () => {
+    this.generatorTimer = setInterval(this.generatePdf, 1000)
+  }
+
+  // Generate PDF
+  generatePdf = () => {
   }
 
   render() {

@@ -87,4 +87,8 @@ class OrdersController < ApplicationController
       orders: orders
     }, status: :ok
   end
+
+  # Generate PDFs
+  def generate_pdfs
+  end
 end

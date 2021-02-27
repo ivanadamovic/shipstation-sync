@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   end
 
   resources :orders, only: [:show, :index]
+  post "/orders/generate" => "orders#generate_pdfs"
 end
