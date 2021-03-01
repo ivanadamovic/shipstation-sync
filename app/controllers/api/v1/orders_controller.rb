@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OrdersController < ApplicationController
+class Api::V1::OrdersController < ApplicationController
   def show
     @order_number = 235400
     ship_to = {

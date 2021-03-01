@@ -14,9 +14,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       post "new_order" => "ship_station_integration#handle_new_order"
       post "new_shipped_order" => "ship_station_integration#handle_new_shipped_order"
+      resources :orders, only: [:show, :index]
+      post "/orders/generate" => "orders#generate_pdfs"
     end
   end
-
-  resources :orders, only: [:show, :index]
-  post "/orders/generate" => "orders#generate_pdfs"
 end

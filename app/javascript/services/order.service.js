@@ -5,7 +5,7 @@ import { request } from "../utils";
 const headers = { "Content-Type": "application/json" }
 
 const getOrders = () => {
-  return fetch('/orders', {
+  return fetch('/api/v1/orders', {
     method: 'GET',
     headers: headers
   })
