@@ -4,7 +4,8 @@ import {
   ResourceList,
   ResourceItem,
   TextStyle,
-  Icon
+  Icon,
+  rgbString
 } from '@shopify/polaris'
 import {
   ShipmentMajor
@@ -17,8 +18,7 @@ class OrderList extends Component {
     super(props)
 
     this.state = {
-      orders: [
-      ],
+      orders: [],
       selectedOrders: []
     }
   }
@@ -31,7 +31,7 @@ class OrderList extends Component {
         this.setState({ orders })
       })
       .catch(err => {
-        console.log(`error -- err`)
+        console.log(`getOrders error -- err`)
       })
   }
 
@@ -68,6 +68,19 @@ class OrderList extends Component {
   generatePdf = () => {
   }
 
+  // Archive orders
+  handleArchive = () => {
+    const { selectedOrders } = this.state
+
+    orderService.archiveOrders(selectedOrders)
+      .then(res => {
+        this.setState({ orders: res.orders, selectOrders: [] })
+      })
+      .catch(err => {
+        console.log(`archiveOrders error -- err`)
+      })
+  }
+
   render() {
     const resourceName = {
       singular: 'order',
@@ -78,6 +91,10 @@ class OrderList extends Component {
       {
         content: 'Generate PDF',
         onAction: () => this.handleGenerate(),
+      },
+      {
+        content: 'Archive orders',
+        onAction: () => this.handleArchive(),
       },
     ]
 
