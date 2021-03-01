@@ -81,10 +81,14 @@ class OrdersController < ApplicationController
 
   # Get orders
   def index
-    orders = ShipstationOrder.select(:id, :order_number, :ship_date).limit(50)
+    orders = ShipstationOrder.select(:id, :order_number, :order_date, :ship_date).limit(50)
 
     render json: {
       orders: orders
     }, status: :ok
+  end
+
+  # Generate PDFs
+  def generate_pdfs
   end
 end
