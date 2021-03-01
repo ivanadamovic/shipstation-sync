@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       post "new_shipped_order" => "ship_station_integration#handle_new_shipped_order"
       resources :orders, only: [:show, :index]
       post "/orders/generate" => "orders#generate_pdfs"
+      post "/orders/archive" => "orders#archive"
     end
   end
 end

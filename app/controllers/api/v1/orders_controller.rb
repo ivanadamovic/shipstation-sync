@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::OrdersController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def show
     @order_number = 235400
     ship_to = {
@@ -91,4 +93,29 @@ class Api::V1::OrdersController < ApplicationController
   # Generate PDFs
   def generate_pdfs
   end
+
+  # Archive orders
+  def archive
+    if archive_params_valid?
+      ids = archive_params[:ids]
+      ShipstationOrder.where(id: ids).destroy_all
+
+      render json: {
+        orders: ShipstationOrder.select(:id, :order_number, :order_date, :ship_date).limit(50)
+      }, status: :ok
+    else
+      render json: {
+        status: false
+      }, status: :bad_request
+    end
+  end
+
+  private
+    def archive_params
+      params.require(:order).permit(ids: [])
+    end
+
+    def archive_params_valid?
+      archive_params[:ids].any?
+    end
 end
